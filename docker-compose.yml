@@ -32,8 +32,7 @@ services:
     container_name: mysite_wordpress
     depends_on:
       - db
-    build:
-      context: .
+    build: .
     ports:
       - '8000:80'
     restart: always
