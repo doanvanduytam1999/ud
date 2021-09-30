@@ -1,1 +1,0 @@
-docker-compose -f docker-compose.prod.yml exec -T -u root wordpress chown -R www-data:www-data /var/www/html
