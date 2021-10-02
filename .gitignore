@@ -1,5 +1,4 @@
 wp-admin
-wp-content/uploads
 
 # default plugins, if we don't need them
 wp-content/plugins/hello.php
