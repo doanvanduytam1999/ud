@@ -38,7 +38,7 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_-NAME: cmsupdiagram
+      WORDPRESS_DB_NAME: cmsupdiagram
       WORDPRESS_DB_USER: cmsupdiagram
       WORDPRESS_DB_PASSWORD: cmsupdiagram
     volumes:
