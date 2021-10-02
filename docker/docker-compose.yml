@@ -4,6 +4,8 @@ services:
   # Database
   db:
     image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: itcmember
@@ -45,3 +47,5 @@ services:
       - wpsite
 networks:
   wpsite:
+volumes:
+  db_data:
