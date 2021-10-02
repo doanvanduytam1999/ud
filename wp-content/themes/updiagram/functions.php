@@ -113,6 +113,98 @@ if (!function_exists('updiagram_theme_setup')) {
     add_action('init', 'updiagram_theme_setup');
 }
 
+//Register post type feature and custom field
+function create_custom_post_type()
+{
+    $label = array(
+        'name' => 'Features', 
+        'singular_name' => 'Feature' 
+    );
+
+    $args = array(
+        'labels' => $label,
+        'description' => 'Post type Feature',
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'author',
+            'thumbnail',
+            'comments',
+            'trackbacks',
+            'revisions',
+            'custom-fields'
+        ),
+        'hierarchical' => false,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_in_admin_bar' => true,
+        'menu_position' => 5,
+        'menu_icon' => 'dashicons-welcome-widgets-menus', 
+        'can_export' => true, 
+        'has_archive' => true, 
+        'exclude_from_search' => false, 
+        'publicly_queryable' => true, 
+        'capability_type' => 'post'
+    );
+    register_post_type('feature', $args); 
+}
+
+add_action('init', 'create_custom_post_type');
+
+function feature_metaboxes()    
+{
+
+    $cmb = new_cmb2_box(array(
+        'id'            => 'content_sections',
+        'title'         => __('Content Sections', 'cmb2'),
+        'object_types'  => array('feature'), // Post type
+        'context'       => 'normal',
+        'priority'      => 'high',
+        'show_names'    => true, // Show field names on the left
+        // 'cmb_styles' => false, // false to disable the CMB stylesheet
+        'closed'     => true, // Keep the metabox closed by default
+    ));
+
+
+    $content_section_group = $cmb->add_field(array(
+        'id'          => 'ud_content_sections',
+        'type'        => 'group',
+        'options'     => array(
+            'group_title'   => __('Section {#}', 'cmb2'), // since version 1.1.4, {#} gets replaced by row number
+            'add_button'    => __('Add Another Section', 'cmb2'),
+            'remove_button' => __('Remove Section', 'cmb2'),
+            'sortable'      => true, // beta
+            'closed'     => true, // true to have the groups closed by default
+        ),
+    ));
+
+    // Id's for group's fields only need to be unique for the group. Prefix is not needed.
+    $cmb->add_group_field($content_section_group, array(
+        'name' => 'Section Title',
+        'id'   => 'title',
+        'type' => 'text',
+        // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+    ));
+
+    $cmb->add_group_field($content_section_group, array(
+        'name' => 'Description',
+        'description' => 'Write text for this section',
+        'id'   => 'text',
+        'type' => 'textarea',
+    ));
+
+    $cmb->add_group_field($content_section_group, array(
+        'name' => 'Entry Image',
+        'id'   => 'image',
+        'type' => 'file',
+    ));
+}
+
+add_action('cmb2_admin_init', 'feature_metaboxes');
+
 function remove_width_attribute($content) {
     $content = preg_replace('/(width|height)=".*?"/', '', $content);
     return $content;
