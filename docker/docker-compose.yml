@@ -9,9 +9,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: itcmember
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: cmsupdiagram
+      MYSQL_USER: cmsupdiagram
+      MYSQL_PASSWORD: cmsupdiagram
     networks:
       - wpsite
   # phpmyadmin
@@ -38,8 +38,8 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_USER: cmsupdiagram
+      WORDPRESS_DB_PASSWORD: cmsupdiagram
     volumes: 
        - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
