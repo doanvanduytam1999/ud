@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Page Single Post
+ Template Name: Page Single Case Study
  */
 include get_template_directory()."/includes/header.php";?>
 <?php global $wp;?>
@@ -57,7 +57,7 @@ include get_template_directory()."/includes/header.php";?>
     </section>
     <section class="blog-detail__content" id="blog-detail-content">
         <div class="container">
-            <a class="blog-detail__content__nav" href="/blog">
+            <a class="blog-detail__content__nav" href="/case-studies">
                 <i class="blog-detail__content__nav__icon">
                     <svg width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -76,7 +76,7 @@ include get_template_directory()."/includes/header.php";?>
             <div class="blog-detail__content__main">
                 <div class="blog-detail__content__main__header">
                     <span class="blog-detail__content__main__header__category">
-                        <?php echo get_tags_single_post(null); ?>
+                        <?php echo get_case_study_tags(null); ?>
                     </span>
                     <span class="blog-detail__content__main__header__duration">
                         <i class="blog-detail__content__main__header__duration__icon">
@@ -99,7 +99,7 @@ include get_template_directory()."/includes/header.php";?>
                     <h1><?php the_title(); ?></h1>
                     <?php the_content(); ?>
                 </div>
-            </div><a class="blog-detail__content__nav" href="/blog">
+            </div><a class="blog-detail__content__nav" href="/case-studies">
                 <i class="blog-detail__content__nav__icon">
                     <svg width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -165,7 +165,7 @@ include get_template_directory()."/includes/header.php";?>
         <div class="container">
             <h6 class="blog-detail__related__title">Related articles</h6>
             <div class="blog-detail__related__list">
-                <?php get_related_posts_desc('category', 'post'); ?>
+                <?php get_related_posts_desc('cs-categories', 'case-study'); ?>
             </div>
         </div>
     </section>
@@ -190,5 +190,41 @@ include get_template_directory()."/includes/header.php";?>
 </style>
 
 <?php 
-add_action( 'wp_footer', 'scripts_for_single_post' , 50);
+add_action( 'wp_footer', 'scripts_for_single_case_study' , 50);
+
+
+function scripts_for_single_case_study(){	
+?>
+
+<script type="text/javascript">
+const startPos = document.getElementById("blog-detail-content");
+const shareField = document.getElementById("blog-detail__share");
+const MEDIUM_SCREEN_SIZE = 1024;
+const TOP_BLOCK = 150;
+const BOTTOM_BLOCK = 70;
+
+window.onscroll = function() {
+    handleScrolling()
+};
+
+function handleScrolling() {
+    if (window.pageYOffset - TOP_BLOCK >= startPos.offsetHeight) {
+        shareField.style.position = 'absolute';
+    } else if (window.pageYOffset + BOTTOM_BLOCK >= startPos.offsetTop) {
+        shareField.style.position = 'fixed';
+        shareField.style.top = '120px';
+    } else {
+        if (screen.width <= MEDIUM_SCREEN_SIZE) {
+            shareField.style.top = '38%';
+        } else {
+            shareField.style.top = '570px';
+        }
+        shareField.style.position = null;
+    }
+}
+</script>
+
+<?php
+}
+
 include get_template_directory()."/includes/footer.php"; ?>

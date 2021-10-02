@@ -152,17 +152,35 @@ const autoShowClearIconWhenSearch = () => {
 }
 
 const iniFaqSwiper = () => {
-  const swiperEl = new Swiper(".updiagram-plus__faq__swiper");
+  const swiperElPlus = new Swiper(".updiagram-plus__faq__swiper");
+  const swiperElAffiliate = new Swiper(".updiagram-affiliate__faq__swiper");
 
-  if (swiperEl) {
+  if (swiperElPlus) {
     new Swiper(".updiagram-plus__faq__swiper", {
+      cssMode: true,
       loop: true,
       autoplay: {
         delay: 3000,
         disableOnInteraction: false,
       },
       slidesPerView: 'auto',
-      spaceBetween: 50,
+      centeredSlides: true,
+      spaceBetween: 40,
+    });
+  }
+
+  if (swiperElAffiliate) {
+    new Swiper(".updiagram-affiliate__faq__swiper", {
+      cssMode: true,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 40,
     });
   }
 }
+

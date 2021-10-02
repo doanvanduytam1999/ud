@@ -31,10 +31,7 @@ wp-includes
 /wp-trackback.php
 /xmlrpc.php
 
-*.env
-*.env.example
 
 docker-compose*.yml
 Dockerfile
 
-fix_permissions*.sh

@@ -1,13 +1,19 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 <?php
 
 /*
     Template Name: Page Integration Detail
 */
 
-include get_template_directory() . "/includes/header.php";
-?>
+global $post;
+$post_id = $post->ID;
+$banner = get_field("banner");
+$heading = get_post_meta($post_id, "heading", true);
+$recognition_list = get_post_meta($post_id, "recognition_list", true);
+$demo_content_list = get_post_meta($post_id, "demo_content_list", true);
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+?>
 
 <div class="integration-detail">
     <section class="home__hero-banner">
@@ -19,7 +25,7 @@ include get_template_directory() . "/includes/header.php";
                 <div class="hero-banner__content">
                     <h4 class="section"></h4>
                     <h3 class="hero-banner__content__title heading">
-                        A fundamentally new way to work in Slack.
+                        <?php echo $heading ?>
                     </h3>
                     <p class="hero-banner__content__subtitle"></p>
                     <p class="hero-banner__content__desc desc"></p>
@@ -30,16 +36,16 @@ include get_template_directory() . "/includes/header.php";
                         </div>
                     </div>
                     <div class="row d-flex hero-banner__content__rating">
-                        <img class="col-12 col-md-6 col-lg-4" src="<?php echo THEME_URL . "/assets/images/home/rating.png" ?>" />
+                        <img class="col-12 col-md-6" src="<?php echo THEME_URL . "/assets/images/home/rating.png" ?>" />
                     </div>
                     <div class="row d-flex mt-1 mt-md-3 mb-5 hero-banner__content__recognition-list">
-                        <img class="col-4 col-md-2 col-lg-3 mt-3" src="<?php echo THEME_URL . "/assets/images/home/capterra.png" ?>" alt="Recognition" />
-                        <img class="col-4 col-md-2 col-lg-3 mt-3" src="<?php echo THEME_URL . "/assets/images/home/crowd.png" ?>" alt="Recognition" />
-                        <img class="col-4 col-md-2 col-lg-3 mt-3" src="<?php echo THEME_URL . "/assets/images/home/alternativeto.png" ?>" alt="Recognition" />
+                        <?php foreach((array)$recognition_list as $recognition) { console_log($recognition['recognition_img']); ?>
+                            <img class="col-4 col-md-2 col-lg-3 mt-3" src="<?php echo $recognition['recognition_img'] ?>" />
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="hero-banner__banner">
-                    <img src="<?php echo THEME_URL . "/assets/images/integration-detail/integration-detail-banner.png" ?>" alt="Home Hero Banner Background" />
+                    <img src="<?php echo $banner['url'] ?>" alt="<?php $banner['alt'] ?>">
                 </div>
             </div>
         </div>
@@ -47,48 +53,20 @@ include get_template_directory() . "/includes/header.php";
     <section class="feature-detail__list">
         <div class="container">
             <div class="feature-detail__list__container">
-                <div class="feature-detail__list__item">
-                    <img class="feature-detail__list__item__img" src="<?php echo THEME_URL . "/assets/images/feature-detail/screenshot-1.png" ?>" />
-                    <div class="feature-detail__list__item__info">
-                        <h6 class="feature-detail__list__item__title">
-                            A fundamentally new way to work in Slack.
-                        </h6>
-                        <p class="feature-detail__list__item__desc">
-                            When task links are posted in Slack, they’ll be instantly
-                            enriched with detail, context, and the ability to perform
-                            actions with the task.
-                        </p>
-                        <a class="feature-detail__list__item__read-more link" href="">Read more</a>
+                <?php foreach((array)$demo_content_list as $demo_content) { ?>
+                    <div class="feature-detail__list__item">
+                        <img class="feature-detail__list__item__img" src="<?php echo THEME_URL . "/assets/images/feature-detail/screenshot-1.png" ?>" />
+                        <div class="feature-detail__list__item__info">
+                            <h6 class="feature-detail__list__item__title">
+                                <?php echo $demo_content['demo_content_heading'] ?>
+                            </h6>
+                            <p class="feature-detail__list__item__desc">
+                                <?php echo $demo_content['demo_content_desc'] ?>
+                            </p>
+                            <a class="feature-detail__list__item__read-more link" href="">Read more</a>
+                        </div>
                     </div>
-                </div>
-                <div class="feature-detail__list__item">
-                    <img class="feature-detail__list__item__img" src="<?php echo THEME_URL . "/assets/images/feature-detail/screenshot-2.png" ?>" />
-                    <div class="feature-detail__list__item__info">
-                        <h6 class="feature-detail__list__item__title">
-                            A fundamentally new way to work in Slack.
-                        </h6>
-                        <p class="feature-detail__list__item__desc">
-                            When task links are posted in Slack, they’ll be instantly
-                            enriched with detail, context, and the ability to perform
-                            actions with the task.
-                        </p>
-                        <a class="feature-detail__list__item__read-more link" href="">Read more</a>
-                    </div>
-                </div>
-                <div class="feature-detail__list__item">
-                    <img class="feature-detail__list__item__img" src="<?php echo THEME_URL . "/assets/images/feature-detail/screenshot-3.png" ?>" />
-                    <div class="feature-detail__list__item__info">
-                        <h6 class="feature-detail__list__item__title">
-                            A fundamentally new way to work in Slack.
-                        </h6>
-                        <p class="feature-detail__list__item__desc">
-                            When task links are posted in Slack, they’ll be instantly
-                            enriched with detail, context, and the ability to perform
-                            actions with the task.
-                        </p>
-                        <a class="feature-detail__list__item__read-more link" href="">Read more</a>
-                    </div>
-                </div>
+                <?php } ?> 
             </div>
         </div>
     </section>
@@ -139,6 +117,6 @@ include get_template_directory() . "/includes/header.php";
     </section>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 <?php include get_template_directory() . "/includes/footer.php"; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

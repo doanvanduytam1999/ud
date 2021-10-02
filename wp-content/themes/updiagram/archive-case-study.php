@@ -1,55 +1,41 @@
-<?php 
-
+<?php
 /*
-    Template Name: Page All Posts
+    Template Name: Page Case Studies
 */
-
 include get_template_directory()."/includes/header.php";?>
 
+
 <?php 
-    global $wp_query;
     global $currentCategory;
-    global $currentSearch;
     $currentUrl = $_SERVER['REQUEST_URI'];
     if (strpos($currentUrl, '=')) {
         $currentCategory = explode('=', $currentUrl)[1] ? explode('=', $currentUrl)[1] : '';
     }
-     
-    if (strpos($currentUrl, '?search')) {
-        $currentSearch = explode('=', $currentUrl)[1] ? explode('=', $currentUrl)[1] : '';
-    }
-
-
 ?>
-<div class="blog">
-    <div class="blog__bg"></div>
-    <section class="blog__hero-banner">
-        <h1 class="blog__hero-banner__title">UpDiagram's Blog</h1>
-        <div class="blog__container">
-            <div class="blog__hero-banner__header">
-                <div class="blog__hero-banner__header__categories">
-                    <a class="blog__hero-banner__header__categories__item <?= $currentCategory == '' ? 'is-active' : ''?>"
-                        href="javascript:void(0)" data-slug="">
-                        All Articles
-                    </a>
-                    <?php 
-                         $args = array(
-                            'type'        => 'post',
-                            'child_of'    => 0,
-                            'parent'      => '', 
-                            'hide_empty'  => '0',
-                            'orderby'     => 'name',
-	                        'order'       => 'ASC',
-                        );
-                        $categories = get_categories($args);
-                    ?>
-                    <?php foreach($categories as $category) { ?>
-                    <a class="blog__hero-banner__header__categories__item <?= $currentCategory == $category->slug ? 'is-active' : ''?>"
-                        data-slug="<?= $category->slug; ?>" href="javascript:void(0)"><?= $category->name; ?></a>
-                    <?php } ?>
+
+<div class="case-study">
+    <div class="case-study__bg"></div>
+    <div class="case-study__bg-sm"></div>
+    <section class="case-study__hero-banner">
+        <div class="container">
+            <div class="case-study__hero-banner__main">
+                <div class="case-study__hero-banner__main__bg">
+                    <img src="<?php echo THEME_URL . "/assets/images/svg/case-study/hero-banner-bg.svg" ?>"
+                        title="Hero Banner Background" />
                 </div>
-                <form id="blog_form" class="search blog__hero-banner__header__search" role="search" method="get"
-                    action="<?php echo home_url('/blog'); ?>">
+                <div class="case-study__hero-banner__main__content">
+                    <h1 class="case-study__hero-banner__main__content__title">Case studies</h1>
+                    <p class="case-study__hero-banner__main__content__desc">Visualize product roadmaps, project plans,
+                        and reports for effective team collaboration and putting into action that impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="case-study__articles">
+        <div class="container">
+            <div class="case-study__articles__toolkit">
+                <form id="cs_form" class="search case-study__articles__toolkit__search" ole="search" method="get"
+                    action="<?php echo home_url('/case-studies'); ?>">
                     <i class="search__icon-search">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -57,70 +43,69 @@ include get_template_directory()."/includes/header.php";?>
                                 fill="#AEAEAE" />
                         </svg>
                     </i>
-                    <i class="search__icon-remove" id="blog_form_input_remove">
+                    <i class="search__icon-remove" id="cs_form_input_remove">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
                                 fill="black" />
                         </svg>
                     </i>
-                    <input id="blog_form_input" class="search__input" placeholder="Search" value="" name="search" />
+                    <input id="cs_form_input" class="search__input" placeholder="Search" />
                 </form>
-            </div>
-            <div class="blog__hero-banner__body">
-                <!-- Highlight blog -->
-                <?php get_highlight_single_post(); ?>
-                <div class="blog__hero-banner__body__actions">
-                    <h1 class="blog__hero-banner__body__title">UpDiagram's Blog</h1>
-                    <div class="blog__hero-banner__body__subscribe">
-                        <span class="blog__hero-banner__body__subscribe__title">Subscribe to our blog</span>
-                        <span class="blog__hero-banner__body__subscribe__desc">Get the latest posts in your email</span>
-                        <div class="blog__hero-banner__body__subscribe__actions">
-                            <input class="blog__hero-banner__body__subscribe__input input"
-                                placeholder="Enter your Email address" />
-                            <button class="blog__hero-banner__body__subscribe__btn btn">Subscribe</button>
-                        </div>
-                    </div>
-                    <div class="blog__hero-banner__body__get-start">
-                        <span class="blog__hero-banner__body__get-start__title">Get better work done</span>
-                        <button class="blog__hero-banner__body__get-start__btn btn">Get started</button>
-                        <span class="blog__hero-banner__body__get-start__notice">Free forever. No credit card</span>
-                    </div>
+                <div class="case-study__articles__toolkit__categories">
+                    <a class="case-study__articles__toolkit__categories__item <?= $currentCategory == '' ? 'is-active' : ''?>"
+                        href="javascript:void(0)" data-slug="">All Articles</a>
+                    <?php
+                        $args = array(
+                            'type'        => 'case-study',
+                            'taxonomy'    => 'cs-categories',
+                            'child_of'    => 0,
+                            'parent'      => '', 
+                            'hide_empty'  => '0',
+                            'orderby'     => 'name',
+	                        'order'       => 'ASC',
+                        );
+                        $cs_categories = get_terms($args);
+                    ?>
+                    <?php foreach($cs_categories as $category) { ?>
+                    <a class="case-study__articles__toolkit__categories__item <?= $currentCategory == $category->slug ? 'is-active' : ''?>"
+                        data-slug="<?= $category->slug; ?>" href="javascript:void(0)"><?= $category->name; ?></a>
+                    <?php } ?>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="blog__articles">
-        <div class="container">
-            <div class="blog__articles__list" id="ajax-posts">
-                <!-- All Blogs -->
+            <div class="case-study__articles__list" id="ajax-posts">
+                <!-- All Case Studies -->
                 <?php 
-                    if ($currentSearch) {
+                    if ($currentCategory) {
                         $args = array(
-                            'post_type' => 'post',
-                            'post_status'=>'publish', 
+                            'post_type' => 'case-study',
+                            'post_status' => 'publish', 
                             'posts_per_page'=> '12',
-                            's' => $currentSearch,
+                            'tax_query' => array( 
+                                array( 
+                                    'taxonomy' => 'cs-categories',
+                                    'field' => 'slug',
+                                    'terms' => $currentCategory 
+                                )
+                            )
                         );
                     } else {
                         $args = array(
-                            'post_type' => 'post',
-                            'post_status'=>'publish', 
+                            'post_type' => 'case-study',
+                            'post_status' => 'publish', 
                             'posts_per_page'=> '12',
-                            'category_name' => $currentCategory,
                         );
                     }
-                    
-                    $wpb_query = new WP_Query($args);
+                   
+                    $wpb_query = new WP_Query($args)
                 ?>
                 <?php if ($wpb_query->have_posts()) : ?>
                 <?php while ( $wpb_query->have_posts() ) : 
                         $wpb_query->the_post();?>
                 <a class="card" href="<?php the_permalink(); ?>">
                     <div class="card__header">
-                        <span class="card__header__tag"><?php echo get_tags_single_post(null); ?></span>
-                        <span class="card__header__reading-time">
-                            <i class="card__header__reading-time__icon">
+                        <span class="card__header__tag"><?php echo get_case_study_tags(null); ?></span>
+                        <span class="card__header__reading-time"><i class="card__header__reading-time__icon">
                                 <svg class="colored" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -151,7 +136,7 @@ include get_template_directory()."/includes/header.php";?>
                 <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
             </div>
-            <span id="load_more_posts" class="blog__articles__load-more">
+            <span class="case-study__articles__load-more">
                 <svg id="load_more_posts_icon" width="29" height="29" viewBox="0 0 29 29" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -166,24 +151,26 @@ include get_template_directory()."/includes/header.php";?>
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M11.7549 0.0571289H1.70939C0.765427 0.0571289 0 0.841406 0 1.80861V3.46357C0 4.43095 0.765427 5.21523 1.70939 5.21523H11.7549C12.699 5.21523 13.4643 4.43095 13.4643 3.46357V1.80861C13.4643 0.841406 12.699 0.0571289 11.7549 0.0571289Z"
                         fill="#AEAEAE" />
-                </svg>
-            </span>
+                </svg></span>
         </div>
     </section>
 </div>
-
 <style>
-.blog__bg::before {
-    background-image: url("<?php echo THEME_URL . "/assets/images/svg/blog/blog-bg.svg" ?>");
+.case-study__bg::before {
+    background-image: url("<?php echo THEME_URL . "/assets/images/svg/case-study/case-study-bg.svg" ?>");
 }
 
-.large-card::after {
-    background-image: url("<?php echo THEME_URL . "/assets/images/svg/blog/blog-large-card-bg.svg" ?>");
+.case-study__bg-sm::before {
+    background-image: url("<?php echo THEME_URL . "/assets/images/svg/case-study/case-study-bg-sm.svg" ?>");
+}
+
+.case-study__hero-banner__main::before {
+    background-image: url("<?php echo THEME_URL . "/assets/images/svg/case-study/hero-banner-bg.svg" ?>");
 }
 </style>
 
-<?php 
+<?php
 add_action( 'wp_footer', 'scripts_for_index_page_load', 100);
-add_action( 'wp_footer', 'scripts_for_index_page_filter', 100);
-add_action( 'wp_footer', 'scripts_for_index_page_search', 100);
+add_action( 'wp_footer', 'scripts_for_cs_page_filter', 100);
+add_action( 'wp_footer', 'scripts_for_cs_page_search', 100);
 include get_template_directory()."/includes/footer.php"; ?>

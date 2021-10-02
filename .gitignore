@@ -32,6 +32,3 @@ wp-includes
 /wp-trackback.php
 /xmlrpc.php
 
-.env
-build.env
-deploy.env

@@ -29,7 +29,7 @@ services:
       - wpsite
   # Wordpress
   wordpress:
-    container_name: mysite_wordpress
+    container_name: cms_updiagram
     depends_on:
       - db
     build: ../
@@ -41,6 +41,8 @@ services:
       WORDPRESS_DB_-NAME: cmsupdiagram
       WORDPRESS_DB_USER: cmsupdiagram
       WORDPRESS_DB_PASSWORD: cmsupdiagram
+    volumes:
+      - ../config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - wpsite
 networks:
