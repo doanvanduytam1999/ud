@@ -41,12 +41,9 @@ services:
       WORDPRESS_DB_-NAME: cmsupdiagram
       WORDPRESS_DB_USER: cmsupdiagram
       WORDPRESS_DB_PASSWORD: cmsupdiagram
-    volumes:
-      - uploads:/var/www/html/wp-content/uploads
     networks:
       - wpsite
 networks:
   wpsite:
 volumes:
   db_data:
-  uploads:
