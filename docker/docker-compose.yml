@@ -38,11 +38,9 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_-NAME: cmsupdiagram
       WORDPRESS_DB_USER: cmsupdiagram
       WORDPRESS_DB_PASSWORD: cmsupdiagram
-    volumes: 
-      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./wp-content/uploads:/var/www/html/wp-content/uploads
     networks:
       - wpsite
 networks:
