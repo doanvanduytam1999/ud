@@ -8,10 +8,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: CMSUpdiagram
+      MYSQL_DATABASE: cmsupdiagram
+      MYSQL_USER: cmsupdiagram
+      MYSQL_PASSWORD: cmsupdiagram
     networks:
       - wpsite
   # phpmyadmin
@@ -24,7 +24,7 @@ services:
       - '8080:80'
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: password 
+      MYSQL_ROOT_PASSWORD: CMSUpdiagram
     networks:
       - wpsite
   # Wordpress
@@ -38,8 +38,8 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_USER: cmsupdiagram
+      WORDPRESS_DB_PASSWORD: cmsupdiagram
     volumes: 
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
