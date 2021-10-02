@@ -43,9 +43,11 @@ services:
       WORDPRESS_DB_PASSWORD: cmsupdiagram
     volumes:
       - ../config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - uploads:/var/www/html/wp-content/uploads
     networks:
       - wpsite
 networks:
   wpsite:
 volumes:
+  uploads:
   db_data:
